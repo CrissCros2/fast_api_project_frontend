@@ -1,43 +1,65 @@
 import React, { useState } from 'react';
-import './card_slider.css'; // import the CSS file
-import {CreatePerson} from '../person_create/person_create';
+import './card_slider.css';
+import Button from "@mui/joy/Button"; // import the CSS file
 
 
 
-export function CardSlider() {
+export function CardSlider({card, direction}) {
     const [isVisible, setIsVisible] = useState(true);
 
-    const slide_down = () => {
-        const slider = document.querySelector('.slide_from_top');
-        slider.classList.add('slide_to_top');
-        slider.classList.remove('slide_from_top');
+    const slide_onto_screen = (class_label_current, class_label_replacement) => {
+        const slider = document.querySelector("." + class_label_current);
+        if (slider != null)
+        {
+            slider.classList.remove(class_label_current);
+            slider.classList.add(class_label_replacement);
+        }
+    }
+
+    const slide_out_of_screen = (class_label_current, class_label_replacement) => {
+        const slider = document.querySelector("." + class_label_current);
+        if (slider != null)
+        {
+            slider.classList.remove(class_label_current);
+            slider.classList.add(class_label_replacement);
+        }
+    }
+
+    const show_slider = () => {
+        slide_onto_screen(directions[0], directions[1]);
+        setIsVisible(!isVisible);
+    }
+
+    const hide_slider = () => {
+        slide_out_of_screen(directions[1], directions[0]);
         setIsVisible(false);
     }
 
-    const slide_up = () => {
-        const slider = document.querySelector('.slide_to_top');
-        slider.classList.remove('slide_to_top');
-        slider.classList.add('slide_from_top');
-        setIsVisible(true);
+    const get_direction_class_names = () => {
+        switch (direction)
+        {
+            case 0:
+                return ['slide_up_to_top', 'slide_down_from_top'];
+            case 1:
+                return ['slide_down_to_bottom', 'slide_up_from_bottom'];
+            default:
+                return ['slide_up_to_top', 'slide_down_from_top'];
+        }
     }
+    const directions = get_direction_class_names()
+
 
     return (
-        <div>
-            <div className={isVisible ? 'slide_from_top' : 'slide_to_top'} style={{position: "absolute",
-                left: "0",
-                right: "200px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                width: "100px",
-                height: "200px",
-                marginBottom: "auto",
-                marginTop: "auto",
-                top: "0",
-                bottom: "0"}}>
-                {CreatePerson()}
+        <>
+            <div className={`overlay ${isVisible ? 'visible' : ''}`} onClick={hide_slider}>
+                <div className={isVisible ? directions[1] : directions[0]} style={{margin: "auto", width: "15%"}}
+                     onClick={(event) => {event.stopPropagation()}}>
+                    {card}
+                </div>
             </div>
-            <button onClick={isVisible ? slide_down : slide_up}>Test</button>
-        </div>
+
+            <Button onClick={show_slider}>Show Slider</Button>
+        </>
 
     );
 }
