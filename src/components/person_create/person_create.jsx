@@ -1,5 +1,5 @@
 import { SubmitButton } from "../submit_button/submit_button";
-import { NameInput } from "../name_input/name_input";
+import { TextInput } from "../text_input/text_input";
 import Grid from '@mui/joy/Grid';
 import Sheet from '@mui/joy/Sheet';
 import { styled } from '@mui/joy/styles';
@@ -19,14 +19,15 @@ export function CreatePerson() {
             sx={{width: '15%'}}
             alignItems="center"
             display="flex"
-            alignContent='center'>
+            alignContent='center'
+            data-testid="create-person-box">
             <Card variant="solid">
                 <Grid direction="column" justifyContent="center" alignItems="center" container spacing={2} sx={{ flexGrow: 1 }}>
                     <Grid xs={8}>
                         <CenteredItem><Typography level="title-md" textColor="white">Create Person</Typography></CenteredItem>
                     </Grid>
                     <Grid xs={8}>
-                        {NameInput()}
+                        {TextInput("Name")}
                     </Grid>
                     <Grid xs={8}>
                         <CenteredItem>{SubmitButton("Create Person")}</CenteredItem>

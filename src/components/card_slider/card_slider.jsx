@@ -1,29 +1,45 @@
 import React, { useState } from 'react';
 import './card_slider.css';
 import Button from "@mui/joy/Button"; // import the CSS file
+import {SliderDirection} from "../../constants"; "../../constants"
 
 
+export const slide_onto_screen = (class_label_current, class_label_replacement) => {
+    const slider = document.querySelector("." + class_label_current);
+    if (slider != null)
+    {
+        slider.classList.remove(class_label_current);
+        slider.classList.add(class_label_replacement);
+    }
+}
+
+export const slide_out_of_screen = (class_label_current, class_label_replacement) => {
+    const slider = document.querySelector("." + class_label_current);
+    if (slider != null)
+    {
+        slider.classList.remove(class_label_current);
+        slider.classList.add(class_label_replacement);
+    }
+}
+
+export const get_direction_class_names = (direction) => {
+    switch (direction)
+    {
+        case SliderDirection.Up:
+            return ['slide_up_to_top', 'slide_down_from_top'];
+        case SliderDirection.Down:
+            return ['slide_down_to_bottom', 'slide_up_from_bottom'];
+        case SliderDirection.Left:
+            return ["slide_right_to_left", "slide_left_from_right"];
+        case SliderDirection.Right:
+            return ["slide_left_to_right", "slide_right_from_left"];
+        default:
+            return ['slide_up_to_top', 'slide_down_from_top'];
+    }
+}
 
 export function CardSlider({card, direction}) {
-    const [isVisible, setIsVisible] = useState(true);
-
-    const slide_onto_screen = (class_label_current, class_label_replacement) => {
-        const slider = document.querySelector("." + class_label_current);
-        if (slider != null)
-        {
-            slider.classList.remove(class_label_current);
-            slider.classList.add(class_label_replacement);
-        }
-    }
-
-    const slide_out_of_screen = (class_label_current, class_label_replacement) => {
-        const slider = document.querySelector("." + class_label_current);
-        if (slider != null)
-        {
-            slider.classList.remove(class_label_current);
-            slider.classList.add(class_label_replacement);
-        }
-    }
+    const [isVisible, setIsVisible] = useState(false);
 
     const show_slider = () => {
         slide_onto_screen(directions[0], directions[1]);
@@ -35,30 +51,18 @@ export function CardSlider({card, direction}) {
         setIsVisible(false);
     }
 
-    const get_direction_class_names = () => {
-        switch (direction)
-        {
-            case 0:
-                return ['slide_up_to_top', 'slide_down_from_top'];
-            case 1:
-                return ['slide_down_to_bottom', 'slide_up_from_bottom'];
-            default:
-                return ['slide_up_to_top', 'slide_down_from_top'];
-        }
-    }
-    const directions = get_direction_class_names()
-
+    const directions = get_direction_class_names(direction)
 
     return (
         <>
-            <div className={`overlay ${isVisible ? 'visible' : ''}`} onClick={hide_slider}>
+            <div className={`overlay ${isVisible ? 'visible' : ''}`} onClick={hide_slider} data-testid="Hide Slider">
                 <div className={isVisible ? directions[1] : directions[0]} style={{margin: "auto", width: "15%"}}
-                     onClick={(event) => {event.stopPropagation()}}>
+                     onClick={(event) => {event.stopPropagation()}} data-testid="slider">
                     {card}
                 </div>
             </div>
 
-            <Button onClick={show_slider}>Show Slider</Button>
+            <Button onClick={show_slider} data-testid="Show Slider">Show Slider</Button>
         </>
 
     );
