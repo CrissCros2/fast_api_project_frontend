@@ -1,9 +1,9 @@
 import { render, screen, fireEvent  } from '@testing-library/react';
 import App from './App';
 import {CardSlider, slide_onto_screen, slide_out_of_screen, get_direction_class_names} from "./components/card_slider/card_slider.jsx";
-import {CreatePerson} from "./components/person_create/person_create";
+import {CreatePersonForm} from "./components/person_create/person_create";
 import {SliderDirection} from "./constants";
-import {CreateEvent} from "./components/event_create/event_create";
+import { EventForm} from "./components/event_create/event_create";
 import { React } from "react";
 
 test('renders app correctly', () => {
@@ -12,7 +12,7 @@ test('renders app correctly', () => {
 
 test("Renders people card correctly", () => {
   render(<CardSlider
-      card={CreatePerson()}
+      card={<CreatePersonForm />}
       direction={SliderDirection.Up}/>)
 
   const peopleCard = screen.getByTestId("create-person-box");
@@ -21,7 +21,7 @@ test("Renders people card correctly", () => {
 
 test("Renders event card correctly", () => {
   render(<CardSlider
-      card={CreateEvent()}
+      card={<EventForm />}
       direction={SliderDirection.Down}/>)
 
   const eventCard = screen.getByTestId("create-event-box");

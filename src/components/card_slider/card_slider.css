@@ -9,7 +9,7 @@
 }
 
 .slide_up_from_bottom {
-    transform: translateY(125%);
+    transform: translateY(100%);
     transition: transform 1s ease;
 }
 

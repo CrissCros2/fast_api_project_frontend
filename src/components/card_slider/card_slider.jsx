@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './card_slider.css';
 import Button from "@mui/joy/Button"; // import the CSS file
-import {SliderDirection} from "../../constants"; "../../constants"
+import {SliderDirection} from "../../constants"
 
 
 export const slide_onto_screen = (class_label_current, class_label_replacement) => {
