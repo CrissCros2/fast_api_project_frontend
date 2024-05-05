@@ -1,4 +1,4 @@
-import { render, screen, fireEvent  } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 import {CardSlider, slide_onto_screen, slide_out_of_screen, get_direction_class_names} from "./components/card_slider/card_slider.jsx";
 import {CreatePersonForm} from "./components/person_create/person_create";
