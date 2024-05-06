@@ -1,10 +1,19 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
 import App from './App';
 import {CardSlider, slide_onto_screen, slide_out_of_screen, get_direction_class_names} from "./components/card_slider/card_slider.jsx";
 import { PersonForm } from "./components/person_create/person_create";
 import {SliderDirection} from "./constants";
 import { EventForm } from "./components/event_create/event_create";
 import { React } from "react";
+import axios from 'axios';
+
+beforeEach(() => {
+  axios.post.mockResolvedValue({ data: {} });
+  axios.get.mockResolvedValue({ data: {} });
+})
+afterEach(cleanup);
+
+jest.mock("axios")
 
 test('renders app correctly', () => {
   render(<App />);
@@ -129,3 +138,30 @@ describe("Test get direction class names", () => {
     expect(get_direction_class_names(5)).toStrictEqual(["slide_up_to_top", 'slide_down_from_top'])
   })
 })
+
+describe('PersonForm component', () => {
+  it('should update inputs state on change', () => {
+    render(<PersonForm />);
+    const nameInput = screen.getByPlaceholderText('Name...');
+
+    fireEvent.change(nameInput, { target: { value: 'John' }})
+
+    expect(nameInput.value).toBe('John');
+  });
+
+  it('should call slide_out function and axios post method on form submit', async () => {
+    const mockSlideOut = jest.fn();
+
+    render(<PersonForm slide_out={mockSlideOut} />);
+    const nameInput = screen.getByPlaceholderText('Name...'); // Assuming the input has name attribute 'name'
+    const submitButton = screen.getByText('Create Person'); // Assuming the submit button has text 'Submit'
+
+    fireEvent.change(nameInput, { target: { value: 'John' } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(mockSlideOut).toHaveBeenCalled();
+    });
+    expect(axios.post).toHaveBeenCalledWith('http://localhost:8000/persons/?person_name=John', {});
+  });
+});

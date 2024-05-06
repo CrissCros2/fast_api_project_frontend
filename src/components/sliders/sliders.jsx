@@ -10,10 +10,12 @@ export function Sliders() {
             <CardSlider
                 card={EventForm}
                 direction={SliderDirection.Down}
+                show_text={"Create Event"}
             />
             <CardSlider
                 card={PersonForm}
                 direction={SliderDirection.Up}
+                show_text={"Create Person"}
             />
         </>
     );

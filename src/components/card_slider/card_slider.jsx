@@ -38,7 +38,7 @@ export const get_direction_class_names = (direction) => {
     }
 }
 
-export function CardSlider({card, direction}) {
+export function CardSlider({card, direction, show_text}) {
     const [isVisible, setIsVisible] = useState(false);
 
     const show_slider = () => {
@@ -61,7 +61,7 @@ export function CardSlider({card, direction}) {
                     {card(hide_slider)}
                 </div>
             </div>
-            <Button onClick={show_slider} data-testid="Show Slider">Show Slider</Button>
+            <Button onClick={show_slider} data-testid="Show Slider">{show_text}</Button>
         </>
 
     );

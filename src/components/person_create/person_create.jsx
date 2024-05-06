@@ -14,7 +14,7 @@ const CenteredItem = styled(Sheet)(() => ({
     background: 'transparent'
 }));
 
-export function PersonForm(slide_out) {
+export function PersonForm(slide_out: function) {
     const [inputs, setInputs] = useState({
         name: "",
     });
@@ -29,14 +29,12 @@ export function PersonForm(slide_out) {
 
     const handleSubmit = (event) => {
         axios.post('http://localhost:8000/persons/?person_name=' + inputs.name, {})
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
         event.preventDefault();
-        slide_out();
+        if (typeof(slide_out) !== 'function'){
+            slide_out.slide_out()
+        } else {
+            slide_out();
+        }
     }
 
     return (
@@ -50,7 +48,7 @@ export function PersonForm(slide_out) {
                 <Card variant="solid">
                     <Grid direction="column" justifyContent="center" alignItems="center" container spacing={2} sx={{ flexGrow: 1 }}>
                         <Grid xs={8}>
-                            <CenteredItem><Typography level="title-md" textColor="white">Create Person</Typography></CenteredItem>
+                            <CenteredItem><Typography level="title-md" textColor="white">Create Person:</Typography></CenteredItem>
                         </Grid>
                         <Grid xs={8}>
                             <Input
@@ -62,6 +60,7 @@ export function PersonForm(slide_out) {
                                 type="text"
                                 value={inputs.name}
                                 onChange={handleChange}
+                                data-testid="name-input"
                             />
                         </Grid>
                         <Grid xs={8}>

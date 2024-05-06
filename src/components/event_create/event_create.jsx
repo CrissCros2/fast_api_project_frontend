@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Button from "@mui/joy/Button";
 import React, { useState } from "react";
 import Input from '@mui/joy/Input';
+import {PersonSelect} from "../person_select/person_select";
 
 const CenteredItem = styled(Sheet)(() => ({
     textAlign: 'center',
@@ -19,14 +20,22 @@ export function EventForm(slide_out) {
     const [inputs, setInputs] = useState({
         title: "",
         description: "",
-        time: ""
+        time: "",
+        persons: []
     });
 
-    const handleChange = (event) => {
-        const value = event.target.value;
+    const handlePersonSelectChange = (selectedPersons) => {
         setInputs({
             ...inputs,
-            [event.target.name]: value
+            persons: selectedPersons
+        });
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setInputs({
+            ...inputs,
+            [name]: value
         });
     }
 
@@ -35,7 +44,8 @@ export function EventForm(slide_out) {
             id: uuidv4(),
             title: inputs.title,
             description: inputs.description,
-            time: inputs.time
+            time: inputs.time,
+            persons: inputs.persons
         })
             .then(function (response) {
                 console.log(response);
@@ -58,7 +68,7 @@ export function EventForm(slide_out) {
                 <Card variant="solid">
                     <Grid direction="column" justifyContent="center" alignItems="center" container spacing={3} sx={{ flexGrow: 1 }}>
                         <Grid xs={8}>
-                            <CenteredItem><Typography level="title-md" textColor="white">Create Event</Typography></CenteredItem>
+                            <CenteredItem><Typography level="title-md" textColor="white">Create Event:</Typography></CenteredItem>
                         </Grid>
                         <Grid xs={8}>
                             <Input
@@ -93,6 +103,9 @@ export function EventForm(slide_out) {
                                 value={inputs.time}
                                 onChange={handleChange}
                             />
+                        </Grid>
+                        <Grid xs={8}>
+                            {PersonSelect(handlePersonSelectChange)}
                         </Grid>
                         <Grid xs={8}>
                             <CenteredItem> <Button type='submit' variant="solid">Create Event</Button></CenteredItem>
