@@ -54,7 +54,11 @@ export function EventForm(slide_out) {
                 console.log(error);
             });
         event.preventDefault();
-        slide_out();
+        if (typeof(slide_out) !== 'function'){
+            slide_out.slide_out()
+        } else {
+            slide_out();
+        }
     }
 
     return (
@@ -96,12 +100,14 @@ export function EventForm(slide_out) {
                         </Grid>
                         <Grid xs={8}>
                             <Input
+                                placeholder="Time..."
                                 type="datetime-local"
                                 name="time"
                                 variant="standard"
                                 required
                                 value={inputs.time}
                                 onChange={handleChange}
+                                testid="time-input"
                             />
                         </Grid>
                         <Grid xs={8}>
