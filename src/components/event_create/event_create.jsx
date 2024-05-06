@@ -15,7 +15,7 @@ const CenteredItem = styled(Sheet)(() => ({
     background: 'transparent'
 }));
 
-export function EventForm() {
+export function EventForm(slide_out) {
     const [inputs, setInputs] = useState({
         title: "",
         description: "",
@@ -44,6 +44,7 @@ export function EventForm() {
                 console.log(error);
             });
         event.preventDefault();
+        slide_out();
     }
 
     return (

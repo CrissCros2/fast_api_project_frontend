@@ -1,4 +1,3 @@
-import { TextInput } from "../text_input/text_input";
 import Grid from '@mui/joy/Grid';
 import Sheet from '@mui/joy/Sheet';
 import { styled } from '@mui/joy/styles';
@@ -6,31 +5,30 @@ import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import Box from '@mui/joy/Box';
 import Button from "@mui/joy/Button";
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
+import Input from "@mui/joy/Input";
 
 const CenteredItem = styled(Sheet)(() => ({
     textAlign: 'center',
     background: 'transparent'
 }));
 
-export class CreatePersonForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: ''
-        }
+export function PersonForm(slide_out) {
+    const [inputs, setInputs] = useState({
+        name: "",
+    });
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setInputs({
+            ...inputs,
+            [event.target.name]: value
+        });
     }
 
-    handleChange(event) {
-        this.setState({name: event});
-    }
-
-    handleSubmit(event) {
-        axios.post('http://localhost:8000/persons/?person_name=' + this.state.name, {})
+    const handleSubmit = (event) => {
+        axios.post('http://localhost:8000/persons/?person_name=' + inputs.name, {})
             .then(function (response) {
                 console.log(response);
             })
@@ -38,32 +36,41 @@ export class CreatePersonForm extends React.Component {
                 console.log(error);
             });
         event.preventDefault();
+        slide_out();
     }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <Box
-                    sx={{width: '15%'}}
-                    alignItems="center"
-                    display="flex"
-                    alignContent='center'
-                    data-testid="create-person-box">
-                    <Card variant="solid">
-                        <Grid direction="column" justifyContent="center" alignItems="center" container spacing={2} sx={{ flexGrow: 1 }}>
-                            <Grid xs={8}>
-                                <CenteredItem><Typography level="title-md" textColor="white">Create Person</Typography></CenteredItem>
-                            </Grid>
-                            <Grid xs={8}>
-                                {TextInput("Name", this.handleChange)}
-                            </Grid>
-                            <Grid xs={8}>
-                                <CenteredItem> <Button type='submit' variant="solid">Create Person</Button></CenteredItem>
-                            </Grid>
+    return (
+        <form onSubmit={handleSubmit}>
+            <Box
+                sx={{width: '15%'}}
+                alignItems="center"
+                display="flex"
+                alignContent='center'
+                data-testid="create-person-box">
+                <Card variant="solid">
+                    <Grid direction="column" justifyContent="center" alignItems="center" container spacing={2} sx={{ flexGrow: 1 }}>
+                        <Grid xs={8}>
+                            <CenteredItem><Typography level="title-md" textColor="white">Create Person</Typography></CenteredItem>
                         </Grid>
-                    </Card>
-                </Box>
-            </form>
-        );
-    }
+                        <Grid xs={8}>
+                            <Input
+                                placeholder="Name..."
+                                name="name"
+                                autoComplete="on"
+                                variant="standard"
+                                required
+                                type="text"
+                                value={inputs.name}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid xs={8}>
+                            <CenteredItem> <Button type='submit' variant="solid">Create Person</Button></CenteredItem>
+                        </Grid>
+                    </Grid>
+                </Card>
+            </Box>
+        </form>
+    );
 }
+

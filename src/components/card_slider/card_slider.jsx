@@ -58,10 +58,9 @@ export function CardSlider({card, direction}) {
             <div className={`overlay ${isVisible ? 'visible' : ''}`} onClick={hide_slider} data-testid="Hide Slider">
                 <div className={isVisible ? directions[1] : directions[0]} style={{margin: "auto", width: "15%"}}
                      onClick={(event) => {event.stopPropagation()}} data-testid="slider">
-                    {card}
+                    {card(hide_slider)}
                 </div>
             </div>
-
             <Button onClick={show_slider} data-testid="Show Slider">Show Slider</Button>
         </>
 
