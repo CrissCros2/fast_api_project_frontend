@@ -16,7 +16,7 @@ const CenteredItem = styled(Sheet)(() => ({
     background: 'transparent'
 }));
 
-export function EventForm(slide_out) {
+export function EventForm({slide_out, persons}) {
     const [inputs, setInputs] = useState({
         title: "",
         description: "",
@@ -111,7 +111,7 @@ export function EventForm(slide_out) {
                             />
                         </Grid>
                         <Grid xs={8}>
-                            {PersonSelect(handlePersonSelectChange)}
+                            {PersonSelect(handlePersonSelectChange, persons)}
                         </Grid>
                         <Grid xs={8}>
                             <CenteredItem> <Button type='submit' variant="solid">Create Event</Button></CenteredItem>

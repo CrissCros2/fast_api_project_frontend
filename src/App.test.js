@@ -24,8 +24,10 @@ test('renders app correctly', () => {
 
 test("Renders people card correctly", () => {
   render(<CardSlider
-      card={PersonForm}
-      direction={SliderDirection.Up}/>)
+      Card={PersonForm}
+      direction={SliderDirection.Up}
+      show_text={"Test"}
+      setPersonsUpdated={() => {}}/>)
 
   const peopleCard = screen.getByTestId("create-person-box");
   expect(peopleCard).toBeInTheDocument();
@@ -33,7 +35,7 @@ test("Renders people card correctly", () => {
 
 test("Renders event card correctly", () => {
   render(<CardSlider
-      card={EventForm}
+      Card={EventForm}
       direction={SliderDirection.Down}/>)
 
   const eventCard = screen.getByTestId("create-event-box");
@@ -43,7 +45,7 @@ test("Renders event card correctly", () => {
 describe('CardSlider component', () => {
   test('show_slider should trigger sliding onto the screen', () => {
     // Render the component
-    render(<CardSlider card={() => {}} direction={0} />);
+    render(<CardSlider Card={() => {}} direction={0} />);
 
     // Find the "Show Slider" button and click it
     const showSliderButton = screen.getByTestId('Show Slider');
@@ -58,7 +60,7 @@ describe('CardSlider component', () => {
 
   test('hide_slider should trigger sliding off the screen', () => {
     // Render the component
-    render(<CardSlider card={() => {}} direction={0} />);
+    render(<CardSlider Card={() => {}} direction={0} />);
 
     // Find the "Show Slider" button and click it
     const hideSliderButton = screen.getByTestId('Hide Slider');
@@ -117,27 +119,27 @@ describe('CardSlider component', () => {
 
 describe("Test get direction class names", () => {
   test("Up", () => {
-    render(<CardSlider card={() => {}} direction={0} />);
+    render(<CardSlider Card={() => {}} direction={0} />);
     expect(get_direction_class_names(SliderDirection.Up)).toStrictEqual(["slide_up_to_top", 'slide_down_from_top'])
     });
 
   test("Down", () => {
-    render(<CardSlider card={() => {}} direction={0} />);
+    render(<CardSlider Card={() => {}} direction={0} />);
     expect(get_direction_class_names(SliderDirection.Down)).toStrictEqual(['slide_down_to_bottom', 'slide_up_from_bottom'])
     });
 
   test("Left", () => {
-    render(<CardSlider card={() => {}} direction={0} />);
+    render(<CardSlider Card={() => {}} direction={0} />);
     expect(get_direction_class_names(SliderDirection.Left)).toStrictEqual(["slide_right_to_left", "slide_left_from_right"])
     });
 
   test("Right", () => {
-    render(<CardSlider card={() => {}} direction={0} />);
+    render(<CardSlider Card={() => {}} direction={0} />);
     expect(get_direction_class_names(SliderDirection.Right)).toStrictEqual(["slide_left_to_right", "slide_right_from_left"])
   });
 
   test("Default", () => {
-    render(<CardSlider card={() => {}} direction={0} />);
+    render(<CardSlider Card={() => {}} direction={0} />);
     expect(get_direction_class_names(5)).toStrictEqual(["slide_up_to_top", 'slide_down_from_top'])
   })
 })
@@ -154,8 +156,9 @@ describe('PersonForm component', () => {
 
   it('should call slide_out function and axios post method on form submit', async () => {
     const mockSlideOut = jest.fn();
+    const mockSetPersonsUpdated = jest.fn();
 
-    render(<PersonForm slide_out={mockSlideOut} />);
+    render(<PersonForm slide_out={mockSlideOut} setPersonsUpdated={mockSetPersonsUpdated} />);
     const nameInput = screen.getByPlaceholderText('Name...'); // Assuming the input has name attribute 'name'
     const submitButton = screen.getByText('Create Person'); // Assuming the submit button has text 'Submit'
 

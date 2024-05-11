@@ -14,7 +14,7 @@ const CenteredItem = styled(Sheet)(() => ({
     background: 'transparent'
 }));
 
-export function PersonForm(slide_out: function) {
+export function PersonForm({slide_out, setPersonsUpdated}) {
     const [inputs, setInputs] = useState({
         name: "",
     });
@@ -35,6 +35,7 @@ export function PersonForm(slide_out: function) {
         } else {
             slide_out();
         }
+        setPersonsUpdated(true);
     }
 
     return (

@@ -1,20 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import {GetAllPersons} from "../../apiCalls";
 
 
-export function PersonSelect(handleChange) {
-    const [data, setData] = useState(null)
+export function PersonSelect(handleChange, persons) {
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const [peopleList, setPeopleList] = useState(persons);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await GetAllPersons();
-            setData(result.data);
-        };
-        fetchData()
-    }, []);
+        setPeopleList(persons);
+    }, [persons]);
 
     const handleOptionClick = (item) => {
         const selectedIndex = selectedOptions.findIndex(option => option.id === item.id);
@@ -26,21 +21,21 @@ export function PersonSelect(handleChange) {
             setSelectedOptions(updatedOptions);
             handleChange(updatedOptions);
         }
-
     };
 
     return (
-        <Select multiple data-testid="person-select">
-            {data && data.map((item, index) => (
-                <Option
-                    key={index}
-                    value={item.name}
-                    selected={selectedOptions.some(option => option.id === item.id)}
-                    onClick={() => handleOptionClick(item)}
-                >
-                    {item.name}
-                </Option>
-            ))}
-        </Select>
+        <div>
+            <Select multiple data-testid="select-person">
+                {peopleList && peopleList.map((item, index) => (
+                    <Option
+                        key={index}
+                        value={item.name}
+                        selected={selectedOptions.some(option => option.id === item.id)}
+                        onClick={() => handleOptionClick(item)}>
+                        {item.name}
+                    </Option>
+                ))}
+            </Select>
+        </div>
     );
 }

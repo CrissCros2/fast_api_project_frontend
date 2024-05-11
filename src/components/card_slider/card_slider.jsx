@@ -38,7 +38,7 @@ export const get_direction_class_names = (direction) => {
     }
 }
 
-export function CardSlider({card, direction, show_text}) {
+export function CardSlider({Card, direction, show_text, setPersonsUpdated, persons}) {
     const [isVisible, setIsVisible] = useState(false);
 
     const show_slider = () => {
@@ -58,7 +58,9 @@ export function CardSlider({card, direction, show_text}) {
             <div className={`overlay ${isVisible ? 'visible' : ''}`} onClick={hide_slider} data-testid="Hide Slider">
                 <div className={isVisible ? directions[1] : directions[0]} style={{margin: "auto", width: "15%"}}
                      onClick={(event) => {event.stopPropagation()}} data-testid="slider">
-                    {card(hide_slider)}
+                    {<Card slide_out={hide_slider}
+                            setPersonsUpdated={setPersonsUpdated}
+                            persons={persons}/> }
                 </div>
             </div>
             <Button onClick={show_slider} data-testid="Show Slider">{show_text}</Button>
