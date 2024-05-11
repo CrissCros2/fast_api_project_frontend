@@ -47,12 +47,6 @@ export function EventForm({slide_out, persons}) {
             time: inputs.time,
             persons: inputs.persons
         })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
         event.preventDefault();
         if (typeof(slide_out) !== 'function'){
             slide_out.slide_out()
