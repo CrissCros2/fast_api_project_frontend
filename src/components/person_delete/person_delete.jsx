@@ -18,10 +18,13 @@ export function PersonDelete({slide_out, setPersonsUpdated, persons}) {
     const [selectedPerson, setSelectedPerson] = useState([]);
 
     const handleSubmit = (event) => {
-        DeletePerson(selectedPerson.id);
-        event.preventDefault();
-        slide_out();
-        setPersonsUpdated(true);
+        if (selectedPerson.persons.id !== undefined){
+            DeletePerson(selectedPerson.persons.id);
+            event.preventDefault();
+            slide_out();
+            setPersonsUpdated(true);
+            setSelectedPerson([]);
+        }
     }
 
     return (
@@ -41,7 +44,7 @@ export function PersonDelete({slide_out, setPersonsUpdated, persons}) {
                             <PersonSelect setInputs={setSelectedPerson} persons={persons} multiple={false}/>
                         </Grid>
                         <Grid xs={8}>
-                            <CenteredItem> <Button type='submit' variant="solid">Create Person</Button></CenteredItem>
+                            <CenteredItem> <Button type='submit' variant="solid">Delete Person</Button></CenteredItem>
                         </Grid>
                     </Grid>
                 </Card>

@@ -35,6 +35,11 @@ export function EventForm({slide_out, persons}) {
         CreateEvent(inputs);
         event.preventDefault();
         slide_out();
+        setInputs({
+            title: "",
+            description: "",
+            time: "",
+            persons: []})
     }
 
     return (

@@ -32,6 +32,9 @@ export function PersonForm({slide_out, setPersonsUpdated}) {
         event.preventDefault();
         slide_out();
         setPersonsUpdated(true);
+        setInputs({
+            name: "",
+        });
     }
 
     return (

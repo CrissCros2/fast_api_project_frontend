@@ -12,6 +12,7 @@ export function Sliders() {
 
     useEffect(() => {
         GetAllPersons(setPersons);
+        setPersonsUpdated(false);
     }, [personsUpdated]);
 
     return (

@@ -12,6 +12,10 @@ export function PersonSelect({setInputs, persons = [], multiple = true}) {
         }));
     }, [selectedOptions, setInputs])
 
+    useEffect(() => {
+        setSelectedOptions([]);
+    }, [persons])
+
     const getLabel = (option) => {
         if (option.name === undefined)
         {
@@ -19,7 +23,7 @@ export function PersonSelect({setInputs, persons = [], multiple = true}) {
         }
         else
         {
-            return option.name
+            return option.name + "  (" + option.id.split("-")[0] + ")"
         }
     };
 
@@ -30,7 +34,7 @@ export function PersonSelect({setInputs, persons = [], multiple = true}) {
                 value={selectedOptions}
                 multiple={multiple}
                 options={persons}
-                getOptionLabel={(option) => getLabel(option)} // + "  (" + option.id.split("-")[0] + ")"}
+                getOptionLabel={(option) => getLabel(option)}
                 onChange={(event, newValue) => {
                     setSelectedOptions(newValue);
                 }}
