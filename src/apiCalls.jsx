@@ -8,6 +8,19 @@ export async function GetAllPersons(setPersons){
     setPersons(result.data);
 }
 
+export async function GetAllEvents(setEvents){
+    const result = await axios.get('http://localhost:8000/events/')
+    setEvents(result.data);
+}
+
+export async function CreatePerson(personName) {
+    axios.post('http://localhost:8000/persons/?person_name=' + personName, {})
+}
+
+export async function DeletePerson(personId) {
+    axios.delete('http://localhost:8000/persons/' + personId)
+}
+
 export async function CreateEvent(inputs) {
     axios.post('http://localhost:8000/events/', {
         id: uuidv4(),

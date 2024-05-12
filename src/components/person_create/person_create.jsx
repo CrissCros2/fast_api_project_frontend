@@ -6,7 +6,7 @@ import Typography from '@mui/joy/Typography';
 import Box from '@mui/joy/Box';
 import Button from "@mui/joy/Button";
 import React, {useState} from "react";
-import axios from "axios";
+import {CreatePerson} from "../../apiCalls";
 import Input from "@mui/joy/Input";
 
 const CenteredItem = styled(Sheet)(() => ({
@@ -28,7 +28,7 @@ export function PersonForm({slide_out, setPersonsUpdated}) {
     }
 
     const handleSubmit = (event) => {
-        axios.post('http://localhost:8000/persons/?person_name=' + inputs.name, {})
+        CreatePerson(inputs.name);
         event.preventDefault();
         slide_out();
         setPersonsUpdated(true);

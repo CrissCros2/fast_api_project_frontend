@@ -4,6 +4,7 @@ import {SliderDirection} from "../../constants";
 import { EventForm } from "../event_create/event_create";
 import React, {useState, useEffect} from 'react';
 import {GetAllPersons} from "../../apiCalls";
+import {PersonDelete} from "../person_delete/person_delete";
 
 export function Sliders() {
     const [persons, setPersons] = useState([]);
@@ -26,6 +27,14 @@ export function Sliders() {
                 Card={PersonForm}
                 direction={SliderDirection.Up}
                 show_text={"Create Person"}
+                setPersonsUpdated={setPersonsUpdated}
+                testid={"test-person"}
+            />
+            <CardSlider
+                Card={PersonDelete}
+                direction={SliderDirection.Left}
+                show_text={"Delete Person"}
+                persons={persons}
                 setPersonsUpdated={setPersonsUpdated}
                 testid={"test-person"}
             />

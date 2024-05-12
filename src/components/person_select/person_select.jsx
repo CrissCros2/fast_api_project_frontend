@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Autocomplete} from "@mui/joy";
 
 
-export function PersonSelect({setInputs, persons = []}) {
+export function PersonSelect({setInputs, persons = [], multiple = true}) {
     const [selectedOptions, setSelectedOptions] = useState([]);
 
     useEffect( () => {
@@ -10,20 +10,31 @@ export function PersonSelect({setInputs, persons = []}) {
             ...prevInputs,
             persons: selectedOptions
         }));
-    }, [selectedOptions, setInputs]);
+    }, [selectedOptions, setInputs])
+
+    const getLabel = (option) => {
+        if (option.name === undefined)
+        {
+            return "Persons..."
+        }
+        else
+        {
+            return option.name
+        }
+    };
 
     return (
         <>
             <Autocomplete
                 data-testid="select-persons"
                 value={selectedOptions}
-                multiple={true}
+                multiple={multiple}
                 options={persons}
-                getOptionLabel={(option) => option.name + "  (" + option.id.split("-")[0] + ")"}
+                getOptionLabel={(option) => getLabel(option)} // + "  (" + option.id.split("-")[0] + ")"}
                 onChange={(event, newValue) => {
                     setSelectedOptions(newValue);
                 }}
-            />
+                />
         </>
     );
 }
