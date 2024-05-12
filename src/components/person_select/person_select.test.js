@@ -26,6 +26,8 @@ test('updates selected options when a person is selected', async () => {
     render(<PersonSelect setInputs={mockSetInputs} persons={mockPersons} />);
     const AutoComplete = screen.getByRole('combobox');
 
+    mockSetInputs.mockClear();
+
     // Click on autocomplete to open the dropdown
     fireEvent.mouseDown(AutoComplete);
 
@@ -36,7 +38,7 @@ test('updates selected options when a person is selected', async () => {
     // Check if the selected option is updated
     await waitFor(() => {
         // Once at mount once at update
-        expect(mockSetInputs).toHaveBeenCalledTimes(2);
+        expect(mockSetInputs).toHaveBeenCalledTimes(1);
     });
 
 
