@@ -1,25 +1,19 @@
-import {cleanup, fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {CardSlider} from "../card_slider/card_slider";
 import {EventForm} from "./event_create";
 import {SliderDirection} from "../../constants";
 import {React} from "react";
 import axios from "axios";
-import {v4 as uuidv4} from "uuid";
-
-jest.mock("axios")
-jest.mock('uuid');
-
-beforeEach(() => {
-    axios.post.mockResolvedValue({ data: {} });
-    axios.get.mockResolvedValue({ data: {} });
-    uuidv4.mockReturnValue('test-uuid');
-})
-afterEach(cleanup);
 
 test("Renders event card correctly", () => {
+    const mockSetPersonsUpdated = jest.fn();
+    const mockPersons = [ {name: "test", id: "test-uuid"} ];
     render(<CardSlider
         Card={EventForm}
-        direction={SliderDirection.Down}/>)
+        direction={SliderDirection.Down}
+        show_text={"Test"}
+        setPersonsUpdated={mockSetPersonsUpdated}
+        persons={mockPersons}/>)
 
     const eventCard = screen.getByTestId("create-event-box");
     expect(eventCard).toBeInTheDocument();
@@ -27,7 +21,10 @@ test("Renders event card correctly", () => {
 
 describe('EventForm component', () => {
     it('should update inputs state on change', () => {
-        render(<EventForm />);
+        const mockSlideOut = jest.fn();
+        const mockPersons = [ {name: "test", id: "test-uuid"} ];
+
+        render(<EventForm slide_out={mockSlideOut} persons={mockPersons}/>);
         const titleInput = screen.getByPlaceholderText('Title...');
 
         fireEvent.change(titleInput, { target: { value: 'Test' }})
@@ -37,8 +34,9 @@ describe('EventForm component', () => {
 
     it('should call slide_out function and axios post method on form submit', async () => {
         const mockSlideOut = jest.fn();
+        const mockPersons = [ {name: "test", id: "test-uuid"} ];
 
-        render(<EventForm slide_out={mockSlideOut} />);
+        render(<EventForm slide_out={mockSlideOut} persons={mockPersons}/>);
         const titleInput = screen.getByPlaceholderText('Title...'); // Assuming the input has name attribute 'name'
         const descInput = screen.getByPlaceholderText('Description...'); // Assuming the input has name attribute 'name'
         const timeInput = screen.getByPlaceholderText("Time..."); // Assuming the input has name attribute 'name'

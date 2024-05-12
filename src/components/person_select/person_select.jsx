@@ -20,6 +20,7 @@ export function PersonSelect({setInputs, persons}) {
     return (
         <>
             <Autocomplete
+                data-testid="select-persons"
                 value={selectedOptions}
                 multiple={true}
                 options={peopleList}

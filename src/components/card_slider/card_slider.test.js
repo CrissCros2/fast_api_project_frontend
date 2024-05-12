@@ -1,19 +1,8 @@
-import {cleanup, fireEvent, render, screen} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import {CardSlider, get_direction_class_names, slide_onto_screen, slide_out_of_screen} from "./card_slider";
 import {React} from "react";
 import {SliderDirection} from "../../constants";
-import axios from "axios";
-import {v4 as uuidv4} from "uuid";
 
-jest.mock("axios")
-jest.mock('uuid');
-
-beforeEach(() => {
-    axios.post.mockResolvedValue({ data: {} });
-    axios.get.mockResolvedValue({ data: {} });
-    uuidv4.mockReturnValue('test-uuid');
-})
-afterEach(cleanup);
 
 describe('CardSlider component', () => {
     test('show_slider should trigger sliding onto the screen', () => {

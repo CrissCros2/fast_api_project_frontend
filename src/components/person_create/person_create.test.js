@@ -1,20 +1,10 @@
-import {cleanup, fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {CardSlider} from "../card_slider/card_slider";
 import {PersonForm} from "./person_create";
 import {SliderDirection} from "../../constants";
 import axios from "axios";
 import {React} from "react";
-import {v4 as uuidv4} from "uuid";
 
-jest.mock("axios")
-jest.mock('uuid');
-
-beforeEach(() => {
-    axios.post.mockResolvedValue({ data: {} });
-    axios.get.mockResolvedValue({ data: {} });
-    uuidv4.mockReturnValue('test-uuid');
-})
-afterEach(cleanup);
 
 test("Renders people card correctly", () => {
     render(<CardSlider
