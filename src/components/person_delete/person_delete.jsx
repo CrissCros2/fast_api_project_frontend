@@ -34,7 +34,7 @@ export function PersonDelete({slide_out, setPersonsUpdated, persons}) {
                 alignItems="center"
                 display="flex"
                 alignContent='center'
-                data-testid="create-person-box">
+                data-testid="delete-person-box">
                 <Card variant="solid">
                     <Grid direction="column" justifyContent="center" alignItems="center" container spacing={2} sx={{ flexGrow: 1 }}>
                         <Grid xs={8}>

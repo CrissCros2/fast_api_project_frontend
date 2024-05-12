@@ -13,10 +13,13 @@ jest.mock('uuid');
 beforeEach(() => {
     axios.post.mockResolvedValue({ data: {} });
     axios.get.mockResolvedValue({ data: {} });
+    axios.delete.mockResolvedValue({ data: {} });
     uuidv4.mockReturnValue('test-uuid');
     jest.spyOn(console, 'error')
+    jest.spyOn(console, 'warn')
     // @ts-ignore jest.spyOn adds this functionallity
     console.error.mockImplementation(() => null);
+    console.warn.mockImplementation(() => null);
 })
 
 afterEach(cleanup);
