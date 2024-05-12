@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Autocomplete} from "@mui/joy";
 
 
-export function PersonSelect({inputs, setInputs, persons}) {
+export function PersonSelect({setInputs, persons}) {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [peopleList, setPeopleList] = useState(persons);
 
@@ -11,11 +11,11 @@ export function PersonSelect({inputs, setInputs, persons}) {
     }, [persons]);
 
     useEffect( () => {
-        setInputs({
-            ...inputs,
+        setInputs(prevInputs => ({
+            ...prevInputs,
             persons: selectedOptions
-        });
-    }, [selectedOptions, inputs, setInputs]);
+        }));
+    }, [selectedOptions, setInputs]);
 
     return (
         <>
