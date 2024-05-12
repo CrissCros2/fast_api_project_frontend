@@ -30,11 +30,7 @@ export function PersonForm({slide_out, setPersonsUpdated}) {
     const handleSubmit = (event) => {
         axios.post('http://localhost:8000/persons/?person_name=' + inputs.name, {})
         event.preventDefault();
-        if (typeof(slide_out) !== 'function'){
-            slide_out.slide_out()
-        } else {
-            slide_out();
-        }
+        slide_out();
         setPersonsUpdated(true);
     }
 

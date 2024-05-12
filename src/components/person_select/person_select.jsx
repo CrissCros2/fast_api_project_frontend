@@ -29,7 +29,6 @@ export function PersonSelect({setInputs, persons}) {
                     setSelectedOptions(newValue);
                 }}
             />
-
         </>
     );
 }

@@ -1,13 +1,10 @@
 import axios from "axios";
 import {v4 as uuidv4} from "uuid";
 
+// TODO: Add error handling
 
 export async function GetAllPersons(){
-    try {
-        return await axios.get('http://localhost:8000/persons/')
-    } catch (e) {
-        console.log(e)
-    }
+    return await axios.get('http://localhost:8000/persons/')
 }
 
 export async function CreateEvent(inputs) {

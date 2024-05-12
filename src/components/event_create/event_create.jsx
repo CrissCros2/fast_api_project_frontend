@@ -34,11 +34,7 @@ export function EventForm({slide_out, persons}) {
     const handleSubmit = (event) => {
         CreateEvent(inputs);
         event.preventDefault();
-        if (typeof(slide_out) !== 'function'){
-            slide_out.slide_out()
-        } else {
-            slide_out();
-        }
+        slide_out();
     }
 
     return (

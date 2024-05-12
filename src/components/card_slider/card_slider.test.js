@@ -35,6 +35,21 @@ describe('CardSlider component', () => {
         // Test passes if the slider animation behaves as expected
     });
 
+    test('clicking the card should do nothing', () => {
+        // Render the component
+        render(<CardSlider Card={() => {}} direction={0} />);
+
+        // Find the card and click it
+        const card = screen.getByTestId("slider");
+        fireEvent.click(card);
+
+        // Verify that the slider is visible and has the correct class after the click
+        const slider = screen.getByTestId('slider');
+        expect(slider).toHaveClass('slide_up_to_top');
+
+        // Test passes if the slider animation behaves as expected
+    });
+
     describe('Slide onto and off screen functions', () => {
         test('should correctly slide onto the screen', () => {
             // Create a mock DOM element
