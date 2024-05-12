@@ -3,8 +3,9 @@ import {v4 as uuidv4} from "uuid";
 
 // TODO: Add error handling
 
-export async function GetAllPersons(){
-    return await axios.get('http://localhost:8000/persons/')
+export async function GetAllPersons(setPersons){
+    const result = await axios.get('http://localhost:8000/persons/')
+    setPersons(result.data);
 }
 
 export async function CreateEvent(inputs) {

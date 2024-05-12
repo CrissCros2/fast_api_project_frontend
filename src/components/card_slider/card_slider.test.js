@@ -7,14 +7,14 @@ import {SliderDirection} from "../../constants";
 describe('CardSlider component', () => {
     test('show_slider should trigger sliding onto the screen', () => {
         // Render the component
-        render(<CardSlider Card={() => {}} direction={0} />);
+        render(<CardSlider Card={() => {}} direction={0} testid={"test"}/>);
 
         // Find the "Show Slider" button and click it
         const showSliderButton = screen.getByTestId('Show Slider');
         fireEvent.click(showSliderButton);
 
         // Verify that the slider is visible and has the correct class after the click
-        const slider = screen.getByTestId('slider');
+        const slider = screen.getByTestId('test-slider');
         expect(slider).toHaveClass('slide_down_from_top');
 
         // Test passes if the slider animation behaves as expected
@@ -22,14 +22,14 @@ describe('CardSlider component', () => {
 
     test('hide_slider should trigger sliding off the screen', () => {
         // Render the component
-        render(<CardSlider Card={() => {}} direction={0} />);
+        render(<CardSlider Card={() => {}} direction={0} testid={"test"}/>);
 
         // Find the "Show Slider" button and click it
-        const hideSliderButton = screen.getByTestId('Hide Slider');
+        const hideSliderButton = screen.getByTestId('test-slider-hide');
         fireEvent.click(hideSliderButton);
 
         // Verify that the slider is visible and has the correct class after the click
-        const slider = screen.getByTestId('slider');
+        const slider = screen.getByTestId('test-slider');
         expect(slider).toHaveClass('slide_up_to_top');
 
         // Test passes if the slider animation behaves as expected
@@ -37,14 +37,13 @@ describe('CardSlider component', () => {
 
     test('clicking the card should do nothing', () => {
         // Render the component
-        render(<CardSlider Card={() => {}} direction={0} />);
+        render(<CardSlider Card={() => {}} direction={0} testid={"test"}/>);
 
         // Find the card and click it
-        const card = screen.getByTestId("slider");
-        fireEvent.click(card);
+        const slider = screen.getByTestId("test-slider");
+        fireEvent.click(slider);
 
         // Verify that the slider is visible and has the correct class after the click
-        const slider = screen.getByTestId('slider');
         expect(slider).toHaveClass('slide_up_to_top');
 
         // Test passes if the slider animation behaves as expected

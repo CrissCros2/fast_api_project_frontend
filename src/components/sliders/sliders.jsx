@@ -2,7 +2,7 @@ import {CardSlider} from "../card_slider/card_slider";
 import { PersonForm } from "../person_create/person_create";
 import {SliderDirection} from "../../constants";
 import { EventForm } from "../event_create/event_create";
-import React, {useState, useEffect, act} from 'react';
+import React, {useState, useEffect} from 'react';
 import {GetAllPersons} from "../../apiCalls";
 
 export function Sliders() {
@@ -10,8 +10,7 @@ export function Sliders() {
     const [personsUpdated, setPersonsUpdated] = useState(false);
 
     useEffect(() => {
-        const result = GetAllPersons();
-        act(() => {setPersons(result.data)});
+        GetAllPersons(setPersons);
     }, [personsUpdated]);
 
     return (
@@ -21,12 +20,14 @@ export function Sliders() {
                 direction={SliderDirection.Down}
                 show_text={"Create Event"}
                 persons={persons}
+                testid={"test-event"}
             />
             <CardSlider
                 Card={PersonForm}
                 direction={SliderDirection.Up}
                 show_text={"Create Person"}
                 setPersonsUpdated={setPersonsUpdated}
+                testid={"test-person"}
             />
         </div>
     );

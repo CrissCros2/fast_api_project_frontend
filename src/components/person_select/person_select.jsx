@@ -2,13 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Autocomplete} from "@mui/joy";
 
 
-export function PersonSelect({setInputs, persons}) {
+export function PersonSelect({setInputs, persons = []}) {
     const [selectedOptions, setSelectedOptions] = useState([]);
-    const [peopleList, setPeopleList] = useState(persons);
-
-    useEffect(() => {
-        setPeopleList(persons);
-    }, [persons]);
 
     useEffect( () => {
         setInputs(prevInputs => ({
@@ -23,7 +18,7 @@ export function PersonSelect({setInputs, persons}) {
                 data-testid="select-persons"
                 value={selectedOptions}
                 multiple={true}
-                options={peopleList}
+                options={persons}
                 getOptionLabel={(option) => option.name + "  (" + option.id.split("-")[0] + ")"}
                 onChange={(event, newValue) => {
                     setSelectedOptions(newValue);
