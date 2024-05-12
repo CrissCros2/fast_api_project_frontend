@@ -91,7 +91,7 @@ export function EventForm({slide_out, persons}) {
                             />
                         </Grid>
                         <Grid xs={8}>
-                            <PersonSelect inputs={inputs} setInputs={setInputs} persons={persons}/>
+                            <PersonSelect setInputs={setInputs} persons={persons}/>
                         </Grid>
                         <Grid xs={8}>
                             <CenteredItem> <Button type='submit' variant="solid">Create Event</Button></CenteredItem>
