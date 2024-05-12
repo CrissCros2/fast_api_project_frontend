@@ -18,6 +18,16 @@
     transition: transform 1s ease;
 }
 
+.slide_right_to_left {
+    transform: translate(-500%, 250%);
+    transition: transform 1s ease;
+}
+
+.slide_left_from_right {
+    transform: translate(0%, 250%);
+    transition: transform 1s ease;
+}
+
 .overlay.visible {
     opacity: 1; /* Fully opaque when visible */
     pointer-events: auto; /* Make the overlay interactive */
