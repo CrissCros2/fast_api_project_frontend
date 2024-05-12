@@ -24,7 +24,7 @@ export function Sliders() {
     }, [personsUpdated]);
 
     return (
-        <>
+        <div data-testid="test-sliders">
             <CardSlider
                 Card={EventForm}
                 direction={SliderDirection.Down}
@@ -37,6 +37,6 @@ export function Sliders() {
                 show_text={"Create Person"}
                 setPersonsUpdated={setPersonsUpdated}
             />
-        </>
+        </div>
     );
 }

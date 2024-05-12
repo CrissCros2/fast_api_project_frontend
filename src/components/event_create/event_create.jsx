@@ -4,12 +4,11 @@ import { styled } from '@mui/joy/styles';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import Box from '@mui/joy/Box';
-import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid';
 import Button from "@mui/joy/Button";
 import React, { useState } from "react";
 import Input from '@mui/joy/Input';
 import {PersonSelect} from "../person_select/person_select";
+import {CreateEvent} from "../../apiCalls";
 
 const CenteredItem = styled(Sheet)(() => ({
     textAlign: 'center',
@@ -24,13 +23,6 @@ export function EventForm({slide_out, persons}) {
         persons: []
     });
 
-    const handlePersonSelectChange = (selectedPersons) => {
-        setInputs({
-            ...inputs,
-            persons: selectedPersons
-        });
-    };
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         setInputs({
@@ -40,13 +32,7 @@ export function EventForm({slide_out, persons}) {
     }
 
     const handleSubmit = (event) => {
-        axios.post('http://localhost:8000/events/', {
-            id: uuidv4(),
-            title: inputs.title,
-            description: inputs.description,
-            time: inputs.time,
-            persons: inputs.persons
-        })
+        CreateEvent(inputs);
         event.preventDefault();
         if (typeof(slide_out) !== 'function'){
             slide_out.slide_out()
@@ -64,7 +50,7 @@ export function EventForm({slide_out, persons}) {
                 alignContent='center'
                 data-testid="create-event-box">
                 <Card variant="solid">
-                    <Grid direction="column" justifyContent="center" alignItems="center" container spacing={3} sx={{ flexGrow: 1 }}>
+                    <Grid direction="column" justifyContent="center" alignItems="center" container spacing={3}>
                         <Grid xs={8}>
                             <CenteredItem><Typography level="title-md" textColor="white">Create Event:</Typography></CenteredItem>
                         </Grid>
@@ -105,7 +91,7 @@ export function EventForm({slide_out, persons}) {
                             />
                         </Grid>
                         <Grid xs={8}>
-                            {PersonSelect(handlePersonSelectChange, persons)}
+                            <PersonSelect inputs={inputs} setInputs={setInputs} persons={persons}/>
                         </Grid>
                         <Grid xs={8}>
                             <CenteredItem> <Button type='submit' variant="solid">Create Event</Button></CenteredItem>
