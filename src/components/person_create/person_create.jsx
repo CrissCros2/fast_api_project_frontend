@@ -28,13 +28,17 @@ export function PersonForm({slide_out, setPersonsUpdated}) {
     }
 
     const handleSubmit = (event) => {
-        CreatePerson(inputs.name);
-        event.preventDefault();
-        slide_out();
-        setPersonsUpdated(true);
-        setInputs({
-            name: "",
-        });
+        const error = CreatePerson(inputs.name);
+        if (error === undefined)
+        {
+            event.preventDefault();
+            slide_out();
+            setPersonsUpdated(true);
+            setInputs({
+                name: "",
+            });
+        }
+
     }
 
     return (

@@ -11,8 +11,10 @@ export function Sliders() {
     const [personsUpdated, setPersonsUpdated] = useState(false);
 
     useEffect(() => {
-        GetAllPersons(setPersons);
-        setPersonsUpdated(false);
+        const error = GetAllPersons(setPersons);
+        if (error === undefined){
+            setPersonsUpdated(false);
+        }
     }, [personsUpdated]);
 
     return (
