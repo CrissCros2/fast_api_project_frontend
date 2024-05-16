@@ -9,7 +9,7 @@ function App() {
   return (
       <div data-testid="test-app">
           <Sliders />
-          <CalItem event={events[0]}/>
+          <CalItem event={events[0]} topPosition={"100px"}/>
       </div>
   );
 }
